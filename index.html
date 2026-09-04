@@ -426,7 +426,8 @@ function winLevel(){
   won=true;
 
   points++;
-  coins++;
+ const moedasPorNivel={1:1,2:1,3:4,4:7};
+coins+=moedasPorNivel[level] || 1;
 
   localStorage.carPoints=points;
   localStorage.carCoins=coins;
