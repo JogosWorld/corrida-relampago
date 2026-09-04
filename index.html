@@ -6,13 +6,11 @@
 <title>Corrida Relâmpago</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
-  background:#111;
+  background:#101014;
   font-family:Arial,sans-serif;
   color:white;
   text-align:center;
@@ -20,12 +18,12 @@ body{
 }
 
 h1{
-  margin:12px 0 5px;
+  margin:10px 0 4px;
 }
 
 #info{
-  font-size:18px;
-  margin-bottom:8px;
+  font-size:17px;
+  margin-bottom:7px;
 }
 
 #game{
@@ -35,18 +33,19 @@ h1{
   max-width:95vw;
   margin:auto;
   overflow:hidden;
-  background:#555;
-  border:5px solid white;
-  border-radius:10px;
+  background:#16752f;
+  border:4px solid white;
+  border-radius:12px;
+  box-shadow:0 0 25px #000;
 }
 
 #road{
   position:absolute;
-  left:60px;
-  right:60px;
+  left:55px;
+  right:55px;
   top:0;
   bottom:0;
-  background:#333;
+  background:#303238;
   border-left:6px solid #eee;
   border-right:6px solid #eee;
 }
@@ -58,91 +57,279 @@ h1{
   background:white;
   left:50%;
   transform:translateX(-50%);
+  border-radius:4px;
+  z-index:1;
 }
+
+/* =========================
+   CARRO DO JOGADOR
+========================= */
 
 #car{
   position:absolute;
-  width:50px;
-  height:85px;
-  bottom:30px;
-  left:175px;
-  background:#e53935;
-  border-radius:10px;
-  border:3px solid white;
+  width:54px;
+  height:92px;
+  bottom:28px;
+  left:173px;
   z-index:10;
-}
-
-#car:before{
-  content:"";
-  position:absolute;
-  width:34px;
-  height:28px;
-  left:5px;
-  top:10px;
-  background:#80deea;
-  border-radius:5px;
-}
-
-#car:after{
-  content:"";
-  position:absolute;
-  width:8px;
-  height:15px;
-  background:#111;
-  left:-6px;
-  top:15px;
+  border-radius:17px 17px 12px 12px;
+  border:2px solid white;
+  background:linear-gradient(
+    90deg,
+    #850000,
+    #ff3030 42%,
+    #ff5555 52%,
+    #a80000
+  );
   box-shadow:
-    54px 0 #111,
-    0 45px #111,
-    54px 45px #111;
+    0 0 12px #ff3030,
+    inset 3px 0 5px rgba(255,255,255,.3),
+    inset -4px 0 6px rgba(0,0,0,.5);
 }
 
-.enemy{
+/* vidro */
+#car .window{
   position:absolute;
-  width:50px;
-  height:85px;
-  background:#1976d2;
-  border-radius:10px;
-  border:3px solid white;
+  left:7px;
+  top:11px;
+  width:36px;
+  height:27px;
+  border-radius:9px 9px 5px 5px;
+  background:linear-gradient(
+    135deg,
+    #e9ffff,
+    #36a9d2 50%,
+    #073b55
+  );
+  border:2px solid #111;
+}
+
+/* faixa central */
+#car .stripe{
+  position:absolute;
+  left:22px;
+  top:0;
+  width:8px;
+  height:91px;
+  background:rgba(255,255,255,.55);
+  z-index:2;
+}
+
+/* capô */
+#car .hood{
+  position:absolute;
+  left:8px;
+  top:43px;
+  width:34px;
+  height:17px;
+  border-radius:5px;
+  background:rgba(120,0,0,.35);
+}
+
+/* faróis */
+#car .headlight{
+  position:absolute;
+  width:10px;
+  height:7px;
+  bottom:7px;
+  background:#fff;
+  border-radius:5px;
+  box-shadow:0 0 10px white;
+  z-index:4;
+}
+
+#car .headlight.left{left:7px}
+#car .headlight.right{right:7px}
+
+/* rodas */
+#car .wheel{
+  position:absolute;
+  width:10px;
+  height:25px;
+  background:#111;
+  border:1px solid #777;
+  border-radius:5px;
   z-index:5;
 }
 
-.enemy:before{
-  content:"";
+#car .wheel.w1{
+  left:-7px;
+  top:15px;
+}
+
+#car .wheel.w2{
+  right:-7px;
+  top:15px;
+}
+
+#car .wheel.w3{
+  left:-7px;
+  bottom:14px;
+}
+
+#car .wheel.w4{
+  right:-7px;
+  bottom:14px;
+}
+
+/* =========================
+   INIMIGOS
+========================= */
+
+.enemy{
   position:absolute;
-  width:34px;
-  height:28px;
-  left:5px;
-  top:10px;
-  background:#90caf9;
+  width:54px;
+  height:92px;
+  z-index:5;
+  border-radius:17px 17px 12px 12px;
+  border:2px solid white;
+  background:linear-gradient(
+    90deg,
+    #06418a,
+    #238cff 45%,
+    #5aaaff 53%,
+    #06418a
+  );
+  box-shadow:
+    0 0 10px #1685ff,
+    inset 3px 0 5px rgba(255,255,255,.3);
+}
+
+.enemy .window{
+  position:absolute;
+  left:7px;
+  top:11px;
+  width:36px;
+  height:27px;
+  border-radius:9px 9px 5px 5px;
+  background:linear-gradient(
+    135deg,
+    #e9ffff,
+    #399bc1 50%,
+    #06364e
+  );
+  border:2px solid #111;
+}
+
+.enemy .wheel{
+  position:absolute;
+  width:10px;
+  height:25px;
+  background:#111;
+  border:1px solid #777;
   border-radius:5px;
 }
+
+.enemy .w1{left:-7px;top:15px}
+.enemy .w2{right:-7px;top:15px}
+.enemy .w3{left:-7px;bottom:14px}
+.enemy .w4{right:-7px;bottom:14px}
+
+/* =========================
+   OBSTÁCULOS
+========================= */
+
+.obstacle{
+  position:absolute;
+  z-index:7;
+}
+
+.cone{
+  width:30px;
+  height:42px;
+  background:linear-gradient(
+    90deg,
+    #d94b00,
+    #ff8c00,
+    #d94b00
+  );
+  clip-path:polygon(50% 0,100% 100%,0 100%);
+  border-bottom:5px solid white;
+}
+
+.barrier{
+  width:75px;
+  height:32px;
+  background:repeating-linear-gradient(
+    135deg,
+    #fff 0 12px,
+    #e22 12px 24px
+  );
+  border:3px solid #111;
+  border-radius:5px;
+}
+
+.block{
+  width:55px;
+  height:48px;
+  background:linear-gradient(
+    135deg,
+    #999,
+    #555
+  );
+  border:4px solid #222;
+  border-radius:7px;
+}
+
+/* =========================
+   META
+========================= */
+
+#finish{
+  position:absolute;
+  left:61px;
+  right:61px;
+  top:-70px;
+  height:55px;
+  z-index:3;
+  background:repeating-linear-gradient(
+    90deg,
+    #fff 0 20px,
+    #111 20px 40px
+  );
+  border-top:4px solid #111;
+  border-bottom:4px solid #111;
+}
+
+/* =========================
+   MENU
+========================= */
 
 #menu{
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,.9);
+  background:rgba(5,5,10,.94);
   z-index:100;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  padding:20px;
+  padding:15px;
+  overflow:auto;
 }
 
 #menu h2{
-  font-size:34px;
-  margin:10px;
+  font-size:32px;
+  margin:8px;
+}
+
+#subtitle{
+  max-width:330px;
 }
 
 button{
   border:0;
-  border-radius:10px;
-  padding:14px 25px;
-  margin:6px;
-  font-size:18px;
+  border-radius:11px;
+  padding:13px 23px;
+  margin:5px;
+  font-size:17px;
   font-weight:bold;
   cursor:pointer;
+  box-shadow:0 3px 0 rgba(0,0,0,.35);
+}
+
+button:active{
+  transform:translateY(2px);
 }
 
 #start{
@@ -155,7 +342,19 @@ button{
   color:white;
 }
 
-#back{
+#shop{
+  background:#ff9800;
+  color:white;
+}
+
+#how{
+  background:#9c27b0;
+  color:white;
+}
+
+#back,
+#backShop,
+#backHow{
   background:#777;
   color:white;
 }
@@ -164,31 +363,46 @@ button{
   display:none !important;
 }
 
-#message{
-  position:absolute;
-  top:15px;
-  left:0;
-  right:0;
-  z-index:50;
-  font-size:22px;
-  font-weight:bold;
-  text-shadow:2px 2px 3px black;
+#levelMenu,
+#shopMenu,
+#howMenu{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+}
+
+.levelBtn{
+  min-width:260px;
+}
+
+.carButton{
+  min-width:270px;
+}
+
+.selected{
+  outline:3px solid #00e676;
+}
+
+.locked{
+  opacity:.7;
 }
 
 #controls{
-  margin-top:10px;
+  margin-top:8px;
 }
 
 .control{
   width:90px;
   height:55px;
   font-size:25px;
-  background:#333;
+  background:#292929;
   color:white;
   border:2px solid white;
 }
 
 @media(max-width:500px){
+
   #game{
     height:520px;
   }
@@ -206,33 +420,65 @@ button{
 <h1>🏎️ Corrida Relâmpago</h1>
 
 <div id="info">
-  Pontos: <span id="score">0</span>
+  ⭐ Pontos: <span id="score">0</span>
   &nbsp; | &nbsp;
-  Recorde: <span id="best">0</span>
+  🪙 Moedas: <span id="coins">0</span>
+  &nbsp; | &nbsp;
+  🏆 Recorde: <span id="best">0</span>
 </div>
 
 <div id="game">
 
   <div id="road"></div>
 
-  <div id="message"></div>
+  <div id="finish"></div>
 
-  <div id="car"></div>
+  <div id="car">
+    <div class="window"></div>
+    <div class="stripe"></div>
+    <div class="hood"></div>
+
+    <div class="headlight left"></div>
+    <div class="headlight right"></div>
+
+    <div class="wheel w1"></div>
+    <div class="wheel w2"></div>
+    <div class="wheel w3"></div>
+    <div class="wheel w4"></div>
+  </div>
 
   <div id="menu">
 
-    <h2 id="menuTitle">🏎️ Corrida Relâmpago</h2>
+    <h2 id="menuTitle">
+      🏎️ Corrida Relâmpago
+    </h2>
 
     <p id="subtitle">
       Desvia dos carros e chega à meta!
     </p>
 
     <div id="mainMenu">
-      <button id="start">JOGAR</button>
-      <button id="levels">🏁 NÍVEIS</button>
+
+      <button id="start">
+        JOGAR
+      </button>
+
+      <button id="levels">
+        🏁 NÍVEIS
+      </button>
+
+      <button id="shop">
+        🚗 LOJA DE CARROS
+      </button>
+
+      <button id="how">
+        🎮 COMO JOGAR
+      </button>
+
     </div>
 
     <div id="levelMenu" class="hidden">
+
       <button class="levelBtn" data-level="1">
         🐢 NÍVEL 1 - FÁCIL
       </button>
@@ -250,56 +496,211 @@ button{
       </button>
 
       <button id="back">
-        VOLTAR
+        ⬅️ VOLTAR
       </button>
+
+    </div>
+
+    <div id="shopMenu" class="hidden">
+
+      <h3>🚗 LOJA DE CARROS</h3>
+
+      <p>
+        Tens <b id="shopCoins">0</b> 🪙
+      </p>
+
+      <button
+        class="carButton"
+        data-car="red"
+        data-price="0">
+        🔴 CARRO VERMELHO
+      </button>
+
+      <button
+        class="carButton"
+        data-car="blue"
+        data-price="2">
+        🔵 CARRO AZUL — 2 🪙
+      </button>
+
+      <button
+        class="carButton"
+        data-car="gold"
+        data-price="5">
+        🟡 CARRO DOURADO — 5 🪙
+      </button>
+
+      <button
+        class="carButton"
+        data-car="green"
+        data-price="8">
+        🟢 CARRO VERDE — 8 🪙
+      </button>
+
+      <button id="backShop">
+        ⬅️ VOLTAR
+      </button>
+
+    </div>
+
+    <div id="howMenu" class="hidden">
+
+      <h3>🎮 COMO JOGAR</h3>
+
+      <p>⬅️ ➡️ Move o carro</p>
+      <p>🅰️ 🅳 Também podes usar A / D</p>
+      <p>🚧 Desvia dos obstáculos</p>
+      <p>🏁 Chega à meta para ganhar moedas</p>
+
+      <button id="backHow">
+        ⬅️ VOLTAR
+      </button>
+
     </div>
 
   </div>
+
 </div>
 
 <div id="controls">
-  <button class="control" id="left">⬅️</button>
-  <button class="control" id="right">➡️</button>
+
+  <button class="control" id="left">
+    ⬅️
+  </button>
+
+  <button class="control" id="right">
+    ➡️
+  </button>
+
 </div>
 
 <script>
 
-const game = document.getElementById("game");
-const car = document.getElementById("car");
+/* =========================
+   ELEMENTOS
+========================= */
 
-const scoreText = document.getElementById("score");
-const bestText = document.getElementById("best");
+const game =
+  document.getElementById("game");
 
-const menu = document.getElementById("menu");
-const mainMenu = document.getElementById("mainMenu");
-const levelMenu = document.getElementById("levelMenu");
+const car =
+  document.getElementById("car");
 
-const startButton = document.getElementById("start");
-const levelsButton = document.getElementById("levels");
-const backButton = document.getElementById("back");
+const scoreText =
+  document.getElementById("score");
 
-const menuTitle = document.getElementById("menuTitle");
-const subtitle = document.getElementById("subtitle");
+const coinsText =
+  document.getElementById("coins");
 
-const leftButton = document.getElementById("left");
-const rightButton = document.getElementById("right");
+const bestText =
+  document.getElementById("best");
 
-let running = false;
-let score = 0;
-let best = Number(localStorage.getItem("corridaBest") || 0);
+const menu =
+  document.getElementById("menu");
 
-let level = 1;
-let speed = 4;
-let enemyTimer = 0;
+const mainMenu =
+  document.getElementById("mainMenu");
 
-let carX = 175;
+const levelMenu =
+  document.getElementById("levelMenu");
 
-let keys = {
+const shopMenu =
+  document.getElementById("shopMenu");
+
+const howMenu =
+  document.getElementById("howMenu");
+
+const startButton =
+  document.getElementById("start");
+
+const levelsButton =
+  document.getElementById("levels");
+
+const shopButton =
+  document.getElementById("shop");
+
+const howButton =
+  document.getElementById("how");
+
+const backButton =
+  document.getElementById("back");
+
+const backShop =
+  document.getElementById("backShop");
+
+const backHow =
+  document.getElementById("backHow");
+
+const menuTitle =
+  document.getElementById("menuTitle");
+
+const subtitle =
+  document.getElementById("subtitle");
+
+const shopCoins =
+  document.getElementById("shopCoins");
+
+const finish =
+  document.getElementById("finish");
+
+const leftButton =
+  document.getElementById("left");
+
+const rightButton =
+  document.getElementById("right");
+
+
+/* =========================
+   DADOS
+========================= */
+
+let running=false;
+let score=0;
+let level=1;
+let speed=4;
+let enemyTimer=0;
+let obstacleTimer=0;
+let carX=173;
+let progress=0;
+
+let best=Number(
+  localStorage.getItem("corridaBest") || 0
+);
+
+let coins=Number(
+  localStorage.getItem("corridaCoins") || 0
+);
+
+let selectedCar=
+  localStorage.getItem("selectedCar") || "red";
+
+let ownedCars;
+
+try{
+
+  ownedCars=JSON.parse(
+    localStorage.getItem("ownedCars") ||
+    '["red"]'
+  );
+
+}catch{
+
+  ownedCars=["red"];
+
+}
+
+if(!ownedCars.includes("red")){
+  ownedCars.push("red");
+}
+
+let keys={
   left:false,
   right:false
 };
 
-bestText.textContent = best;
+bestText.textContent=best;
+coinsText.textContent=coins;
+shopCoins.textContent=coins;
 
 
 /* =========================
@@ -308,11 +709,13 @@ bestText.textContent = best;
 
 for(let i=0;i<7;i++){
 
-  const line = document.createElement("div");
+  const line=
+    document.createElement("div");
 
-  line.className = "line";
+  line.className="line";
 
-  line.style.top = (i * 100 - 100) + "px";
+  line.style.top=
+    (i*100-100)+"px";
 
   game.appendChild(line);
 }
@@ -324,22 +727,22 @@ for(let i=0;i<7;i++){
 
 function setLevel(l){
 
-  level = l;
+  level=l;
 
-  if(level === 1){
-    speed = 4;
+  if(level===1){
+    speed=4;
   }
 
-  if(level === 2){
-    speed = 5;
+  if(level===2){
+    speed=5;
   }
 
-  if(level === 3){
-    speed = 6;
+  if(level===3){
+    speed=6;
   }
 
-  if(level === 4){
-    speed = 7;
+  if(level===4){
+    speed=7;
   }
 }
 
@@ -348,31 +751,107 @@ function setLevel(l){
    MENU
 ========================= */
 
-levelsButton.onclick = function(){
+levelsButton.onclick=function(){
 
   mainMenu.classList.add("hidden");
+  shopMenu.classList.add("hidden");
+  howMenu.classList.add("hidden");
+
   levelMenu.classList.remove("hidden");
 
-  menuTitle.textContent = "🏁 Escolhe o nível";
-  subtitle.textContent = "Cada nível fica mais rápido e difícil!";
+  menuTitle.textContent=
+    "🏁 Escolhe o nível";
+
+  subtitle.textContent=
+    "Cada nível fica mais rápido e difícil!";
 };
 
 
-backButton.onclick = function(){
+shopButton.onclick=function(){
+
+  mainMenu.classList.add("hidden");
+  levelMenu.classList.add("hidden");
+  howMenu.classList.add("hidden");
+
+  shopMenu.classList.remove("hidden");
+
+  menuTitle.textContent=
+    "🚗 Loja de Carros";
+
+  subtitle.textContent=
+    "Escolhe o teu carro de corrida!";
+
+  updateShop();
+};
+
+
+howButton.onclick=function(){
+
+  mainMenu.classList.add("hidden");
+  levelMenu.classList.add("hidden");
+  shopMenu.classList.add("hidden");
+
+  howMenu.classList.remove("hidden");
+
+  menuTitle.textContent=
+    "🎮 Como jogar";
+
+  subtitle.textContent=
+    "Desvia dos carros e obstáculos!";
+};
+
+
+backButton.onclick=function(){
 
   levelMenu.classList.add("hidden");
   mainMenu.classList.remove("hidden");
 
-  menuTitle.textContent = "🏎️ Corrida Relâmpago";
-  subtitle.textContent = "Desvia dos carros e chega à meta!";
+  menuTitle.textContent=
+    "🏎️ Corrida Relâmpago";
+
+  subtitle.textContent=
+    "Desvia dos carros e chega à meta!";
 };
 
 
-document.querySelectorAll(".levelBtn").forEach(function(button){
+backShop.onclick=function(){
 
-  button.onclick = function(){
+  shopMenu.classList.add("hidden");
+  mainMenu.classList.remove("hidden");
 
-    setLevel(Number(button.dataset.level));
+  menuTitle.textContent=
+    "🏎️ Corrida Relâmpago";
+
+  subtitle.textContent=
+    "Desvia dos carros e chega à meta!";
+};
+
+
+backHow.onclick=function(){
+
+  howMenu.classList.add("hidden");
+  mainMenu.classList.remove("hidden");
+
+  menuTitle.textContent=
+    "🏎️ Corrida Relâmpago";
+
+  subtitle.textContent=
+    "Desvia dos carros e chega à meta!";
+};
+
+
+/* =========================
+   ESCOLHER NÍVEL
+========================= */
+
+document.querySelectorAll(".levelBtn")
+.forEach(function(button){
+
+  button.onclick=function(){
+
+    setLevel(
+      Number(button.dataset.level)
+    );
 
     startGame();
   };
@@ -380,75 +859,368 @@ document.querySelectorAll(".levelBtn").forEach(function(button){
 });
 
 
-startButton.onclick = function(){
+/* =========================
+   LOJA
+========================= */
+
+function updateShop(){
+
+  shopCoins.textContent=coins;
+
+  coinsText.textContent=coins;
+
+  document.querySelectorAll(".carButton")
+  .forEach(function(button){
+
+    const name=
+      button.dataset.car;
+
+    const price=
+      Number(button.dataset.price);
+
+    const names={
+      red:"🔴 CARRO VERMELHO",
+      blue:"🔵 CARRO AZUL",
+      gold:"🟡 CARRO DOURADO",
+      green:"🟢 CARRO VERDE"
+    };
+
+    button.classList.remove(
+      "selected",
+      "locked"
+    );
+
+    if(ownedCars.includes(name)){
+
+      if(selectedCar===name){
+
+        button.textContent=
+          "✅ "+names[name]+" — SELECIONADO";
+
+        button.classList.add("selected");
+
+      }else{
+
+        button.textContent=
+          names[name]+" — USAR";
+      }
+
+    }else{
+
+      button.textContent=
+        names[name]+" — "+price+" 🪙";
+
+      button.classList.add("locked");
+    }
+
+  });
+}
+
+
+document.querySelectorAll(".carButton")
+.forEach(function(button){
+
+  button.onclick=function(){
+
+    const name=
+      button.dataset.car;
+
+    const price=
+      Number(button.dataset.price);
+
+    if(ownedCars.includes(name)){
+
+      selectedCar=name;
+
+      localStorage.setItem(
+        "selectedCar",
+        selectedCar
+      );
+
+      updateCarAppearance();
+      updateShop();
+
+      return;
+    }
+
+    if(coins<price){
+
+      alert(
+        "❌ Não tens moedas suficientes!"
+      );
+
+      return;
+    }
+
+    coins-=price;
+
+    ownedCars.push(name);
+
+    selectedCar=name;
+
+    localStorage.setItem(
+      "corridaCoins",
+      coins
+    );
+
+    localStorage.setItem(
+      "ownedCars",
+      JSON.stringify(ownedCars)
+    );
+
+    localStorage.setItem(
+      "selectedCar",
+      selectedCar
+    );
+
+    coinsText.textContent=coins;
+
+    updateCarAppearance();
+    updateShop();
+
+    alert(
+      "🎉 Compraste o carro!"
+    );
+  };
+
+});
+
+
+/* =========================
+   VISUAL DOS CARROS
+========================= */
+
+function updateCarAppearance(){
+
+  const colors={
+
+    red:{
+      main:"#e53935",
+      dark:"#850000",
+      glow:"#ff3030",
+      stripe:"rgba(255,255,255,.55)"
+    },
+
+    blue:{
+      main:"#1976ff",
+      dark:"#063f99",
+      glow:"#238cff",
+      stripe:"rgba(255,255,255,.65)"
+    },
+
+    gold:{
+      main:"#ffd21f",
+      dark:"#a66b00",
+      glow:"#ffe34d",
+      stripe:"rgba(255,255,255,.75)"
+    },
+
+    green:{
+      main:"#18c86b",
+      dark:"#04743a",
+      glow:"#21ff88",
+      stripe:"rgba(255,255,255,.6)"
+    }
+
+  };
+
+  const color=
+    colors[selectedCar] ||
+    colors.red;
+
+  car.style.background=
+    `linear-gradient(
+      90deg,
+      ${color.dark},
+      ${color.main} 42%,
+      ${color.glow} 52%,
+      ${color.dark}
+    )`;
+
+  car.style.boxShadow=
+    `0 0 14px ${color.glow},
+     inset 3px 0 5px rgba(255,255,255,.3),
+     inset -4px 0 6px rgba(0,0,0,.5)`;
+
+  const stripe=
+    car.querySelector(".stripe");
+
+  stripe.style.background=
+    color.stripe;
+}
+
+updateCarAppearance();
+
+
+/* =========================
+   COMEÇAR
+========================= */
+
+startButton.onclick=function(){
 
   startGame();
 
 };
 
 
-/* =========================
-   COMEÇAR JOGO
-========================= */
-
 function startGame(){
 
-  running = true;
+  running=true;
 
-  score = 0;
+  score=0;
 
-  enemyTimer = 0;
+  progress=0;
 
-  scoreText.textContent = "0";
+  enemyTimer=0;
 
-  carX = 175;
+  obstacleTimer=0;
 
-  car.style.left = carX + "px";
+  scoreText.textContent="0";
 
-  document.querySelectorAll(".enemy").forEach(function(enemy){
-    enemy.remove();
+  carX=173;
+
+  car.style.left=
+    carX+"px";
+
+  finish.style.top="-70px";
+
+  document.querySelectorAll(
+    ".enemy,.obstacle"
+  ).forEach(function(object){
+
+    object.remove();
+
   });
 
   menu.classList.add("hidden");
-
-  menuTitle.textContent = "🏎️ Corrida Relâmpago";
-
-  subtitle.textContent = "Desvia dos carros e chega à meta!";
-
-  mainMenu.classList.remove("hidden");
-  levelMenu.classList.add("hidden");
 
   requestAnimationFrame(gameLoop);
 }
 
 
 /* =========================
-   CRIAR INIMIGO
+   CRIAR CARRO INIMIGO
 ========================= */
 
 function createEnemy(){
 
-  const enemy = document.createElement("div");
+  const enemy=
+    document.createElement("div");
 
-  enemy.className = "enemy";
+  enemy.className="enemy";
 
-  const roadLeft = 60;
-  const roadWidth = 280;
+  enemy.innerHTML=`
+    <div class="window"></div>
+    <div class="wheel w1"></div>
+    <div class="wheel w2"></div>
+    <div class="wheel w3"></div>
+    <div class="wheel w4"></div>
+  `;
 
-  const lane = Math.floor(Math.random() * 3);
+  const colors=[
+    ["#1976ff","#063f99"],
+    ["#9c27b0","#541064"],
+    ["#ff8c00","#994700"],
+    ["#00a878","#00563e"]
+  ];
 
-  const laneWidth = roadWidth / 3;
+  const color=
+    colors[
+      Math.floor(
+        Math.random()*colors.length
+      )
+    ];
 
-  const x =
-    roadLeft +
-    lane * laneWidth +
-    (laneWidth - 50) / 2;
+  enemy.style.background=
+    `linear-gradient(
+      90deg,
+      ${color[1]},
+      ${color[0]} 45%,
+      ${color[1]}
+    )`;
 
-  enemy.style.left = x + "px";
+  const lane=
+    Math.floor(
+      Math.random()*3
+    );
 
-  enemy.style.top = "-100px";
+  const roadLeft=60;
+  const roadWidth=280;
+  const laneWidth=roadWidth/3;
+
+  const x=
+    roadLeft+
+    lane*laneWidth+
+    (laneWidth-54)/2;
+
+  enemy.style.left=
+    x+"px";
+
+  enemy.style.top="-100px";
 
   game.appendChild(enemy);
+}
+
+
+/* =========================
+   CRIAR OBSTÁCULO
+========================= */
+
+function createObstacle(){
+
+  const obstacle=
+    document.createElement("div");
+
+  obstacle.className="obstacle";
+
+  const types=[
+    "cone",
+    "barrier",
+    "block"
+  ];
+
+  let type;
+
+  if(level===1){
+
+    type="cone";
+
+  }else if(level===2){
+
+    type=
+      Math.random()<.7
+      ?"cone"
+      :"barrier";
+
+  }else{
+
+    type=
+      types[
+        Math.floor(
+          Math.random()*types.length
+        )
+      ];
+  }
+
+  obstacle.classList.add(type);
+
+  const lane=
+    Math.floor(
+      Math.random()*3
+    );
+
+  const lanePositions=[
+    78,
+    170,
+    262
+  ];
+
+  obstacle.style.left=
+    lanePositions[lane]+"px";
+
+  obstacle.style.top="-60px";
+
+  game.appendChild(obstacle);
 }
 
 
@@ -458,132 +1230,272 @@ function createEnemy(){
 
 function collision(a,b){
 
-  const r1 = a.getBoundingClientRect();
-  const r2 = b.getBoundingClientRect();
+  const r1=
+    a.getBoundingClientRect();
+
+  const r2=
+    b.getBoundingClientRect();
 
   return !(
-    r1.right < r2.left ||
-    r1.left > r2.right ||
-    r1.bottom < r2.top ||
-    r1.top > r2.bottom
+    r1.right<r2.left ||
+    r1.left>r2.right ||
+    r1.bottom<r2.top ||
+    r1.top>r2.bottom
   );
 }
 
 
 /* =========================
-   FIM DE JOGO
+   RECOMPENSA
+========================= */
+
+function rewardForLevel(){
+
+  if(level===1) return 1;
+  if(level===2) return 1;
+  if(level===3) return 4;
+  if(level===4) return 7;
+
+  return 1;
+}
+
+
+/* =========================
+   GANHAR
+========================= */
+
+function winLevel(){
+
+  running=false;
+
+  const reward=
+    rewardForLevel();
+
+  coins+=reward;
+
+  localStorage.setItem(
+    "corridaCoins",
+    coins
+  );
+
+  coinsText.textContent=coins;
+  shopCoins.textContent=coins;
+
+  menu.classList.remove("hidden");
+
+  mainMenu.classList.remove("hidden");
+  levelMenu.classList.add("hidden");
+  shopMenu.classList.add("hidden");
+  howMenu.classList.add("hidden");
+
+  menuTitle.textContent=
+    "🏆 GANHASTE!";
+
+  subtitle.textContent=
+    "Passaste o nível "+
+    level+
+    " e ganhaste "+
+    reward+
+    " moeda"+(reward===1?"":"s")+"! 🪙";
+
+  if(level<4){
+
+    startButton.textContent=
+      "PRÓXIMO NÍVEL";
+
+    startButton.onclick=function(){
+
+      level++;
+
+      setLevel(level);
+
+      startGame();
+    };
+
+  }else{
+
+    startButton.textContent=
+      "JOGAR NOVAMENTE";
+
+    startButton.onclick=function(){
+
+      setLevel(1);
+
+      startGame();
+    };
+  }
+}
+
+
+/* =========================
+   GAME OVER
 ========================= */
 
 function gameOver(){
 
-  running = false;
+  running=false;
 
-  const finalScore = Math.floor(score);
+  const finalScore=
+    Math.floor(score);
 
-  if(finalScore > best){
+  if(finalScore>best){
 
-    best = finalScore;
+    best=finalScore;
 
     localStorage.setItem(
       "corridaBest",
       best
     );
 
-    bestText.textContent = best;
+    bestText.textContent=best;
   }
 
   menu.classList.remove("hidden");
 
   mainMenu.classList.remove("hidden");
-
   levelMenu.classList.add("hidden");
+  shopMenu.classList.add("hidden");
+  howMenu.classList.add("hidden");
 
-  menuTitle.textContent = "💥 GAME OVER!";
+  menuTitle.textContent=
+    "💥 GAME OVER!";
 
-  subtitle.textContent =
-    "Fizeste " + finalScore + " pontos.";
+  subtitle.textContent=
+    "Fizeste "+
+    finalScore+
+    " pontos.";
 
-  startButton.textContent = "JOGAR NOVAMENTE";
+  startButton.textContent=
+    "JOGAR NOVAMENTE";
+
+  startButton.onclick=function(){
+
+    startGame();
+  };
 }
 
 
 /* =========================
-   CONTROLOS
+   TECLADO
 ========================= */
 
-document.addEventListener("keydown",function(e){
+document.addEventListener(
+  "keydown",
+  function(e){
 
-  if(e.key === "ArrowLeft" || e.key.toLowerCase() === "a"){
+    if(
+      e.key==="ArrowLeft" ||
+      e.key.toLowerCase()==="a"
+    ){
 
-    keys.left = true;
+      keys.left=true;
 
-    e.preventDefault();
+      e.preventDefault();
+    }
+
+    if(
+      e.key==="ArrowRight" ||
+      e.key.toLowerCase()==="d"
+    ){
+
+      keys.right=true;
+
+      e.preventDefault();
+    }
   }
+);
 
-  if(e.key === "ArrowRight" || e.key.toLowerCase() === "d"){
 
-    keys.right = true;
+document.addEventListener(
+  "keyup",
+  function(e){
 
-    e.preventDefault();
+    if(
+      e.key==="ArrowLeft" ||
+      e.key.toLowerCase()==="a"
+    ){
+
+      keys.left=false;
+    }
+
+    if(
+      e.key==="ArrowRight" ||
+      e.key.toLowerCase()==="d"
+    ){
+
+      keys.right=false;
+    }
   }
+);
 
-});
 
-
-document.addEventListener("keyup",function(e){
-
-  if(e.key === "ArrowLeft" || e.key.toLowerCase() === "a"){
-    keys.left = false;
-  }
-
-  if(e.key === "ArrowRight" || e.key.toLowerCase() === "d"){
-    keys.right = false;
-  }
-
-});
-
+/* =========================
+   BOTÕES
+========================= */
 
 function holdLeft(e){
 
   e.preventDefault();
-
-  keys.left = true;
+  keys.left=true;
 }
-
 
 function releaseLeft(e){
 
   e.preventDefault();
-
-  keys.left = false;
+  keys.left=false;
 }
-
 
 function holdRight(e){
 
   e.preventDefault();
-
-  keys.right = true;
+  keys.right=true;
 }
-
 
 function releaseRight(e){
 
   e.preventDefault();
-
-  keys.right = false;
+  keys.right=false;
 }
 
+leftButton.addEventListener(
+  "pointerdown",
+  holdLeft
+);
 
-leftButton.addEventListener("pointerdown",holdLeft);
-leftButton.addEventListener("pointerup",releaseLeft);
-leftButton.addEventListener("pointerleave",releaseLeft);
-leftButton.addEventListener("pointercancel",releaseLeft);
+leftButton.addEventListener(
+  "pointerup",
+  releaseLeft
+);
 
-rightButton.addEventListener("pointerdown",holdRight);
-rightButton.addEventListener("pointerup",releaseRight);
-rightButton.addEventListener("pointerleave",releaseRight);
-rightButton.addEventListener("pointercancel",releaseRight);
+leftButton.addEventListener(
+  "pointerleave",
+  releaseLeft
+);
+
+leftButton.addEventListener(
+  "pointercancel",
+  releaseLeft
+);
+
+rightButton.addEventListener(
+  "pointerdown",
+  holdRight
+);
+
+rightButton.addEventListener(
+  "pointerup",
+  releaseRight
+);
+
+rightButton.addEventListener(
+  "pointerleave",
+  releaseRight
+);
+
+rightButton.addEventListener(
+  "pointercancel",
+  releaseRight
+);
 
 
 /* =========================
@@ -596,76 +1508,123 @@ function gameLoop(){
     return;
   }
 
-  /* mover carro */
+
+  /* movimento */
 
   if(keys.left){
-    carX -= 7;
+    carX-=7;
   }
 
   if(keys.right){
-    carX += 7;
+    carX+=7;
   }
 
 
-  /* limites da estrada */
+  /* limites */
 
-  if(carX < 70){
-    carX = 70;
+  if(carX<70){
+    carX=70;
   }
 
-  if(carX > 280){
-    carX = 280;
+  if(carX>276){
+    carX=276;
   }
 
-  car.style.left = carX + "px";
+  car.style.left=
+    carX+"px";
 
 
-  /* linhas da estrada */
+  /* linhas */
 
-  document.querySelectorAll(".line").forEach(function(line){
+  document.querySelectorAll(
+    ".line"
+  ).forEach(function(line){
 
-    let y = parseFloat(line.style.top);
+    let y=
+      parseFloat(line.style.top);
 
-    y += speed;
+    y+=speed;
 
-    if(y > 600){
-      y = -80;
+    if(y>600){
+      y=-80;
     }
 
-    line.style.top = y + "px";
-
+    line.style.top=
+      y+"px";
   });
 
 
-  /* criar inimigos */
+  /* progresso */
+
+  progress+=
+    speed/52000;
+
+
+  /* meta */
+
+  if(progress>.86){
+
+    let finishY=
+      -70+
+      (progress-.86)*5000;
+
+    finish.style.top=
+      finishY+"px";
+  }
+
+
+  /* inimigos */
 
   enemyTimer++;
 
-  const spawnRate = Math.max(
-    35,
-    80 - level * 10
-  );
+  const enemyRate=
+    Math.max(
+      35,
+      82-level*10
+    );
 
-  if(enemyTimer >= spawnRate){
+  if(enemyTimer>=enemyRate){
 
-    enemyTimer = 0;
+    enemyTimer=0;
 
     createEnemy();
   }
 
 
-  /* mover inimigos */
+  /* obstáculos */
 
-  document.querySelectorAll(".enemy").forEach(function(enemy){
+  obstacleTimer++;
 
-    let y = parseFloat(enemy.style.top);
+  const obstacleRate=
+    Math.max(
+      60,
+      125-level*15
+    );
 
-    y += speed;
+  if(obstacleTimer>=obstacleRate){
 
-    enemy.style.top = y + "px";
+    obstacleTimer=0;
+
+    createObstacle();
+  }
 
 
-    if(collision(car,enemy)){
+  /* mover objetos */
+
+  document.querySelectorAll(
+    ".enemy,.obstacle"
+  ).forEach(function(object){
+
+    let y=
+      parseFloat(object.style.top);
+
+    y+=speed;
+
+    object.style.top=
+      y+"px";
+
+
+    if(collision(car,object)){
 
       gameOver();
 
@@ -673,14 +1632,11 @@ function gameLoop(){
     }
 
 
-    if(y > 620){
+    if(y>630){
 
-      enemy.remove();
+      object.remove();
 
-      score += 10;
-
-      scoreText.textContent =
-        Math.floor(score);
+      score+=10;
     }
 
   });
@@ -688,10 +1644,20 @@ function gameLoop(){
 
   /* pontuação */
 
-  score += 0.03;
+  score+=0.035;
 
-  scoreText.textContent =
+  scoreText.textContent=
     Math.floor(score);
+
+
+  /* vitória */
+
+  if(progress>=1){
+
+    winLevel();
+
+    return;
+  }
 
 
   requestAnimationFrame(gameLoop);
@@ -701,4 +1667,3 @@ function gameLoop(){
 
 </body>
 </html>
-
