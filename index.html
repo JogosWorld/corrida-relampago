@@ -379,17 +379,27 @@ function loop(t){
   const finish=document.getElementById('finishBanner');
   const portal=document.getElementById('portalBanner');
 
-  /* PORTAL — apenas no nível 2, bem visível e perto do início */
-  if(level===2 && progress>=0.06 && progress<0.34){
-    const py=-220+(progress-0.06)*1100;
+  /* PORTAL — nível 2: aparece logo no início e, ao passar por ele, leva ao fim */
+  if(level===2 && progress<0.14){
+    const py=-40+(progress/0.14)*180;
     portal.style.top=py+'px';
     portal.style.opacity='1';
     portal.classList.add('near');
-    document.getElementById('portalText').textContent='🌀 PORTAL À FRENTE! 🌀';
+    document.getElementById('portalText').textContent='🌀 ENTRA NO PORTAL! 🌀';
   } else {
     portal.style.top='-220px';
     portal.style.opacity='0';
     portal.classList.remove('near');
+  }
+
+  /* Entrar no portal: teleporta imediatamente para o final da corrida */
+  if(level===2 && progress>=0.10 && progress<0.14){
+    portal.style.top='120px';
+    portal.style.opacity='1';
+    portal.classList.add('near');
+    document.getElementById('portalText').textContent='🌀 TELETRANSPORTE! 🏁';
+    score=targetScore-0.2;
+    levelProgress=0.99;
   }
 
   /* META */
