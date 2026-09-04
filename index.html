@@ -436,8 +436,7 @@ coins+=moedasPorNivel[level] || 1;
 
   document.querySelector('#menuTitle').textContent='🏆 GANHASTE!';
   document.querySelector('#subtitle').textContent=
-    `Passaste o nível ${level}! +1 ponto ⭐ e +1 moeda 🪙`;
-
+    ``Passaste o nível ${level}! +1 ponto ⭐ e +${moedasPorNivel[level]} moedas 🪙`;
   document.getElementById('start').textContent=
     level<4?'PRÓXIMO NÍVEL':'JOGAR NOVAMENTE';
 
