@@ -515,12 +515,12 @@ const mainMenu=document.getElementById('mainMenu');
 const levelMenu=document.getElementById('levelMenu');
 const shopMenu=document.getElementById('shopMenu');
 
-document.getElementById('start').onclick=()=>{
-  if(won && level<4)level++;
 
+
+document.getElementById('start').onclick=()=>{
+  if(won && level<4) level++;
   document.getElementById('how').style.display='';
   document.getElementById('levels').style.display='';
-
   reset();
 };
 
@@ -530,8 +530,7 @@ document.getElementById('levels').onclick=()=>{
   levelMenu.classList.remove('hidden');
 
   document.getElementById('menuTitle').textContent='🏁 Escolhe o nível';
-  document.getElementById('subtitle').textContent=
-    'Cada nível fica mais rápido e difícil!';
+  document.getElementById('subtitle').textContent='Cada nível fica mais rápido e difícil!';
 };
 
 document.querySelectorAll('.levelBtn').forEach(b=>{
