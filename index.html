@@ -78,7 +78,7 @@ small{opacity:.8}
     <button class="carBtn" data-car="green" data-price="8">🟢 Verde — 8 🪙</button>
     <button id="convertibleBtn" class="carBtn" data-car="convertible" data-price="0">🏖️ Descapotável — 🔒 BLOQUEADO</button>
     <div id="pinArea">
-      <div style="font-size:14px;font-weight:bold">🔐 Código secreto</div>
+      <div style="font-size:14px;font-weight:bold">🔐 Introduzir código</div>
       <input id="pinInput" type="password" inputmode="numeric" maxlength="4" placeholder="Introduzir código">
       <button id="unlockCar">🔓 DESBLOQUEAR</button>
     </div>
@@ -602,7 +602,7 @@ document.getElementById('convertibleBtn').onclick=()=>{
   if(owned().includes('convertible')){
     selectedCar='convertible';localStorage.selectedCar='convertible';alert('Descapotável selecionado! 🏖️🚗');
   }else{
-    alert('Este carro está bloqueado. Usa o código secreto na loja.');
+    alert('Este carro está bloqueado. Introduz o código para desbloquear.');
   }
 };
 
