@@ -2,11 +2,14 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
 <title>Corrida Relâmpago</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 html,body{
   margin:0;
@@ -25,13 +28,13 @@ body{
 }
 
 h1{
-  margin:8px 0 3px;
+  margin:7px 0 3px;
   font-size:27px;
 }
 
 #info{
   font-size:15px;
-  margin-bottom:5px;
+  margin-bottom:4px;
 }
 
 #game{
@@ -70,8 +73,48 @@ h1{
   z-index:1;
 }
 
+
 /* =========================
-   CARRO
+   BARRA DE PROGRESSO
+========================= */
+
+#progressBox{
+  width:400px;
+  max-width:96vw;
+  margin:4px auto 5px;
+}
+
+#progressText{
+  font-weight:bold;
+  font-size:14px;
+  margin-bottom:3px;
+}
+
+#progressBar{
+  width:100%;
+  height:16px;
+  background:#292929;
+  border:2px solid white;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+#progressFill{
+  width:0%;
+  height:100%;
+  background:linear-gradient(
+    90deg,
+    #00c853,
+    #ffd600,
+    #ff6d00,
+    #f00
+  );
+  transition:width .1s linear;
+}
+
+
+/* =========================
+   CARRO DO JOGADOR
 ========================= */
 
 #car{
@@ -83,9 +126,15 @@ h1{
   z-index:10;
   border-radius:17px 17px 12px 12px;
   border:2px solid white;
+
   background:linear-gradient(
-    90deg,#850000,#ff3030 42%,#ff5555 52%,#a80000
+    90deg,
+    #850000,
+    #ff3030 42%,
+    #ff5555 52%,
+    #a80000
   );
+
   box-shadow:
     0 0 14px #ff3030,
     inset 3px 0 5px rgba(255,255,255,.3),
@@ -100,9 +149,14 @@ h1{
   width:36px;
   height:27px;
   border-radius:9px 9px 5px 5px;
+
   background:linear-gradient(
-    135deg,#e9ffff,#36a9d2 50%,#073b55
+    135deg,
+    #e9ffff,
+    #36a9d2 50%,
+    #073b55
   );
+
   border:2px solid #111;
 }
 
@@ -155,8 +209,9 @@ h1{
 .w3{left:-7px;bottom:14px}
 .w4{right:-7px;bottom:14px}
 
+
 /* =========================
-   INIMIGOS
+   CARROS INIMIGOS
 ========================= */
 
 .enemy{
@@ -166,10 +221,17 @@ h1{
   z-index:5;
   border-radius:17px 17px 12px 12px;
   border:2px solid white;
+
   background:linear-gradient(
-    90deg,#06418a,#238cff 45%,#5aaaff 53%,#06418a
+    90deg,
+    #06418a,
+    #238cff 45%,
+    #5aaaff 53%,
+    #06418a
   );
-  box-shadow:0 0 10px #1685ff;
+
+  box-shadow:
+    0 0 10px #1685ff;
 }
 
 .enemy .wheel{
@@ -180,6 +242,7 @@ h1{
   border:1px solid #777;
   border-radius:5px;
 }
+
 
 /* =========================
    OBSTÁCULOS
@@ -193,19 +256,35 @@ h1{
 .cone{
   width:30px;
   height:42px;
+
   background:linear-gradient(
-    90deg,#d94b00,#ff8c00,#d94b00
+    90deg,
+    #d94b00,
+    #ff8c00,
+    #d94b00
   );
-  clip-path:polygon(50% 0,100% 100%,0 100%);
+
+  clip-path:polygon(
+    50% 0,
+    100% 100%,
+    0 100%
+  );
+
   border-bottom:5px solid white;
+  filter:drop-shadow(0 0 4px #ff6600);
 }
 
 .barrier{
   width:75px;
   height:32px;
-  background:repeating-linear-gradient(
-    135deg,#fff 0 12px,#e22 12px 24px
-  );
+
+  background:
+    repeating-linear-gradient(
+      135deg,
+      #fff 0 12px,
+      #e22 12px 24px
+    );
+
   border:3px solid #111;
   border-radius:5px;
 }
@@ -213,78 +292,136 @@ h1{
 .block{
   width:55px;
   height:48px;
-  background:linear-gradient(135deg,#999,#555);
+
+  background:linear-gradient(
+    135deg,
+    #aaa,
+    #555
+  );
+
   border:4px solid #222;
   border-radius:7px;
 }
 
+
 /* =========================
-   META SUPER VISÍVEL
+   META
 ========================= */
 
 #finish{
   position:absolute;
+
   left:55px;
   right:55px;
+
   top:-130px;
+
   height:105px;
+
   z-index:30;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   background:
-    repeating-linear-gradient(
-      45deg,
-      #fff 0 22px,
-      #111 22px 44px
-    );
-  border-top:7px solid #ffeb00;
-  border-bottom:7px solid #ffeb00;
-  box-shadow:0 0 25px #fff,0 0 45px #ffeb00;
-  transition:none;
+    repeating-conic-gradient(
+      #fff 0 25%,
+      #111 0 50%
+    ) 50% / 42px 42px;
+
+  border-top:7px solid #ffd600;
+  border-bottom:7px solid #ffd600;
+
+  box-shadow:
+    0 0 18px #fff,
+    0 0 35px #ffd600,
+    0 0 55px #ff9800;
+
+  animation:finishPulse 1s infinite alternate;
 }
 
 #finishText{
   background:#e00000;
   color:white;
-  font-size:38px;
+
+  font-size:32px;
   font-weight:900;
-  padding:5px 25px;
-  border:5px solid white;
+
+  padding:7px 22px;
+
+  border:4px solid white;
   border-radius:12px;
-  text-shadow:3px 3px 0 #000;
-  box-shadow:0 0 20px #f00;
+
+  text-shadow:
+    3px 3px 0 #000;
+
+  box-shadow:
+    0 0 20px #f00;
 }
 
-#finish.leftFlag:before,
-#finish.rightFlag:after{
+#finish:before,
+#finish:after{
   content:"🏁";
   position:absolute;
-  font-size:42px;
+  font-size:52px;
+  top:18px;
 }
 
-#finish.leftFlag:before{
+#finish:before{
   left:5px;
 }
 
-#finish.rightFlag:after{
+#finish:after{
   right:5px;
 }
 
+@keyframes finishPulse{
+  from{
+    filter:brightness(1);
+  }
+
+  to{
+    filter:brightness(1.6);
+  }
+}
+
+#finish.near{
+  animation:
+    finishPulse .25s infinite alternate,
+    finishShake .12s infinite alternate;
+}
+
+@keyframes finishShake{
+  from{
+    transform:translateX(-2px);
+  }
+
+  to{
+    transform:translateX(2px);
+  }
+}
+
+
 /* =========================
-   MENSAGEM
+   AVISO
 ========================= */
 
 #message{
   position:absolute;
-  top:20px;
+  top:14px;
   left:0;
   right:0;
+
   z-index:80;
-  font-size:25px;
+
+  font-size:22px;
   font-weight:bold;
-  text-shadow:2px 2px 4px black;
+
+  text-shadow:
+    2px 2px 4px black;
 }
+
 
 /* =========================
    MENU
@@ -293,13 +430,19 @@ h1{
 #menu{
   position:absolute;
   inset:0;
-  background:rgba(5,5,10,.94);
+
+  background:rgba(5,5,10,.95);
+
   z-index:100;
+
   display:flex;
   flex-direction:column;
+
   justify-content:center;
   align-items:center;
+
   padding:15px;
+
   overflow:auto;
 }
 
@@ -315,12 +458,19 @@ h1{
 button{
   border:0;
   border-radius:11px;
+
   padding:13px 23px;
+
   margin:5px;
+
   font-size:17px;
   font-weight:bold;
+
   cursor:pointer;
-  box-shadow:0 3px 0 rgba(0,0,0,.35);
+
+  box-shadow:
+    0 3px 0 rgba(0,0,0,.35);
+
   touch-action:none;
 }
 
@@ -348,7 +498,9 @@ button:active{
   color:white;
 }
 
-#back,#backShop,#backHow{
+#back,
+#backShop,
+#backHow{
   background:#777;
   color:white;
 }
@@ -370,42 +522,56 @@ button:active{
 }
 
 .carButton{
-  min-width:270px;
+  min-width:280px;
 }
 
 .selected{
   outline:3px solid #00e676;
 }
 
+
 /* =========================
-   SETAS DO TELEMÓVEL
+   SETAS TELEMÓVEL
 ========================= */
 
 #controls{
   width:400px;
   max-width:96vw;
+
   margin:7px auto 0;
+
   display:flex;
+
   justify-content:space-between;
+
   gap:15px;
+
   touch-action:none;
 }
 
 .control{
   width:48%;
   height:68px;
+
   margin:0;
   padding:0;
+
   font-size:38px;
+
   background:#292929;
   color:white;
+
   border:3px solid white;
+
   border-radius:15px;
+
   box-shadow:
     0 5px 0 #111,
     0 0 10px rgba(255,255,255,.25);
+
   user-select:none;
   -webkit-user-select:none;
+
   touch-action:none;
 }
 
@@ -414,6 +580,7 @@ button:active{
   transform:translateY(4px);
 }
 
+
 /* =========================
    TELEMÓVEL
 ========================= */
@@ -421,19 +588,22 @@ button:active{
 @media(max-width:500px){
 
   h1{
-    font-size:23px;
-    margin:5px 0 2px;
+    font-size:22px;
+    margin:4px 0 2px;
   }
 
   #info{
-    font-size:13px;
-    margin-bottom:3px;
+    font-size:12px;
+  }
+
+  #progressText{
+    font-size:12px;
   }
 
   #game{
-    height:calc(100vh - 145px);
-    max-height:560px;
     width:96vw;
+    height:calc(100vh - 150px);
+    max-height:560px;
   }
 
   #road{
@@ -446,14 +616,28 @@ button:active{
     right:45px;
   }
 
+  #finishText{
+    font-size:25px;
+    padding:6px 15px;
+  }
+
+  #finish:before,
+  #finish:after{
+    font-size:38px;
+    top:28px;
+  }
+
   #controls{
     width:96vw;
-    margin-top:6px;
   }
 
   .control{
-    height:65px;
-    font-size:36px;
+    height:62px;
+    font-size:34px;
+  }
+
+  #progressBox{
+    width:96vw;
   }
 }
 </style>
@@ -464,29 +648,44 @@ button:active{
 <h1>🏎️ Corrida Relâmpago</h1>
 
 <div id="info">
-⭐ Pontos: <span id="score">0</span>
-&nbsp;|&nbsp;
-🪙 Moedas: <span id="coins">0</span>
-&nbsp;|&nbsp;
-🏆 Recorde: <span id="best">0</span>
+  ⭐ <span id="score">0</span>
+  &nbsp;|&nbsp;
+  🪙 <span id="coins">0</span>
+  &nbsp;|&nbsp;
+  🏆 <span id="best">0</span>
+</div>
+
+<div id="progressBox">
+
+  <div id="progressText">
+    🏁 Meta: <span id="target">100</span>
+    pontos — faltam <span id="remaining">100</span>
+  </div>
+
+  <div id="progressBar">
+    <div id="progressFill"></div>
+  </div>
+
 </div>
 
 <div id="game">
 
   <div id="road"></div>
 
-  <!-- META -->
-  <div id="finish" class="leftFlag rightFlag">
-    <div id="finishText">🏁 META 🏁</div>
+  <div id="finish">
+    <div id="finishText">
+      🏁 META 🏁
+    </div>
   </div>
 
   <div id="message"></div>
 
-  <!-- CARRO -->
   <div id="car">
 
     <div class="window"></div>
+
     <div class="stripe"></div>
+
     <div class="hood"></div>
 
     <div class="headlight left"></div>
@@ -499,7 +698,9 @@ button:active{
 
   </div>
 
+
   <!-- MENU -->
+
   <div id="menu">
 
     <h2 id="menuTitle">
@@ -507,8 +708,11 @@ button:active{
     </h2>
 
     <p id="subtitle">
-      Desvia dos carros e chega à meta!
+      Desvia dos carros e chega à META!
     </p>
+
+
+    <!-- MENU PRINCIPAL -->
 
     <div id="mainMenu">
 
@@ -530,22 +734,25 @@ button:active{
 
     </div>
 
+
+    <!-- NÍVEIS -->
+
     <div id="levelMenu" class="hidden">
 
       <button class="levelBtn" data-level="1">
-        🐢 NÍVEL 1 - FÁCIL
+        🐢 NÍVEL 1 — 100 PONTOS
       </button>
 
       <button class="levelBtn" data-level="2">
-        🚗 NÍVEL 2 - NORMAL
+        🚗 NÍVEL 2 — 200 PONTOS
       </button>
 
       <button class="levelBtn" data-level="3">
-        🔥 NÍVEL 3 - DIFÍCIL
+        🔥 NÍVEL 3 — 300 PONTOS
       </button>
 
       <button class="levelBtn" data-level="4">
-        ⚡ NÍVEL 4 - EXTREMO
+        ⚡ NÍVEL 4 — 500 PONTOS
       </button>
 
       <button id="back">
@@ -553,6 +760,9 @@ button:active{
       </button>
 
     </div>
+
+
+    <!-- LOJA -->
 
     <div id="shopMenu" class="hidden">
 
@@ -562,25 +772,29 @@ button:active{
         Tens <b id="shopCoins">0</b> 🪙
       </p>
 
-      <button class="carButton"
+      <button
+        class="carButton"
         data-car="red"
         data-price="0">
         🔴 CARRO VERMELHO
       </button>
 
-      <button class="carButton"
+      <button
+        class="carButton"
         data-car="blue"
         data-price="2">
         🔵 CARRO AZUL — 2 🪙
       </button>
 
-      <button class="carButton"
+      <button
+        class="carButton"
         data-car="gold"
         data-price="5">
         🟡 CARRO DOURADO — 5 🪙
       </button>
 
-      <button class="carButton"
+      <button
+        class="carButton"
         data-car="green"
         data-price="8">
         🟢 CARRO VERDE — 8 🪙
@@ -592,15 +806,22 @@ button:active{
 
     </div>
 
+
+    <!-- COMO JOGAR -->
+
     <div id="howMenu" class="hidden">
 
       <h3>🎮 COMO JOGAR</h3>
 
-      <p>⬅️ ➡️ Usa as setas para mover</p>
-      <p>📱 No telemóvel, toca nas setas</p>
+      <p>⬅️ ➡️ Move o carro</p>
+
+      <p>📱 Usa as setas grandes no telemóvel</p>
+
       <p>🅰️ 🅳 Também podes usar A / D</p>
+
       <p>🚧 Desvia dos obstáculos</p>
-      <p>🏁 Chega à META para ganhar moedas!</p>
+
+      <p>🏁 Chega à META!</p>
 
       <button id="backHow">
         ⬅️ VOLTAR
@@ -609,20 +830,28 @@ button:active{
     </div>
 
   </div>
+
 </div>
 
+
 <!-- SETAS -->
+
 <div id="controls">
 
-  <button class="control" id="left">
+  <button
+    class="control"
+    id="left">
     ⬅️
   </button>
 
-  <button class="control" id="right">
+  <button
+    class="control"
+    id="right">
     ➡️
   </button>
 
 </div>
+
 
 <script>
 
@@ -630,36 +859,89 @@ button:active{
    ELEMENTOS
 ========================= */
 
-const game=document.getElementById("game");
-const car=document.getElementById("car");
-const scoreText=document.getElementById("score");
-const coinsText=document.getElementById("coins");
-const bestText=document.getElementById("best");
+const game=
+  document.getElementById("game");
 
-const menu=document.getElementById("menu");
-const mainMenu=document.getElementById("mainMenu");
-const levelMenu=document.getElementById("levelMenu");
-const shopMenu=document.getElementById("shopMenu");
-const howMenu=document.getElementById("howMenu");
+const car=
+  document.getElementById("car");
 
-const startButton=document.getElementById("start");
-const levelsButton=document.getElementById("levels");
-const shopButton=document.getElementById("shop");
-const howButton=document.getElementById("how");
+const finish=
+  document.getElementById("finish");
 
-const backButton=document.getElementById("back");
-const backShop=document.getElementById("backShop");
-const backHow=document.getElementById("backHow");
+const finishText=
+  document.getElementById("finishText");
 
-const menuTitle=document.getElementById("menuTitle");
-const subtitle=document.getElementById("subtitle");
-const shopCoins=document.getElementById("shopCoins");
+const message=
+  document.getElementById("message");
 
-const finish=document.getElementById("finish");
-const finishText=document.getElementById("finishText");
+const scoreText=
+  document.getElementById("score");
 
-const leftButton=document.getElementById("left");
-const rightButton=document.getElementById("right");
+const coinsText=
+  document.getElementById("coins");
+
+const bestText=
+  document.getElementById("best");
+
+const targetText=
+  document.getElementById("target");
+
+const remainingText=
+  document.getElementById("remaining");
+
+const progressFill=
+  document.getElementById("progressFill");
+
+const shopCoins=
+  document.getElementById("shopCoins");
+
+const menu=
+  document.getElementById("menu");
+
+const mainMenu=
+  document.getElementById("mainMenu");
+
+const levelMenu=
+  document.getElementById("levelMenu");
+
+const shopMenu=
+  document.getElementById("shopMenu");
+
+const howMenu=
+  document.getElementById("howMenu");
+
+const startButton=
+  document.getElementById("start");
+
+const levelsButton=
+  document.getElementById("levels");
+
+const shopButton=
+  document.getElementById("shop");
+
+const howButton=
+  document.getElementById("how");
+
+const backButton=
+  document.getElementById("back");
+
+const backShop=
+  document.getElementById("backShop");
+
+const backHow=
+  document.getElementById("backHow");
+
+const menuTitle=
+  document.getElementById("menuTitle");
+
+const subtitle=
+  document.getElementById("subtitle");
+
+const leftButton=
+  document.getElementById("left");
+
+const rightButton=
+  document.getElementById("right");
 
 
 /* =========================
@@ -667,15 +949,20 @@ const rightButton=document.getElementById("right");
 ========================= */
 
 let running=false;
+
 let score=0;
+
 let level=1;
+
 let speed=4;
 
 let enemyTimer=0;
+
 let obstacleTimer=0;
 
 let carX=173;
-let progress=0;
+
+let targetScore=100;
 
 let best=Number(
   localStorage.getItem("corridaBest") || 0
@@ -688,249 +975,116 @@ let coins=Number(
 let selectedCar=
   localStorage.getItem("selectedCar") || "red";
 
+let keys={
+  left:false,
+  right:false
+};
+
 let ownedCars;
 
 try{
 
-  ownedCars=JSON.parse(
-    localStorage.getItem("ownedCars") || '["red"]'
-  );
+  ownedCars=
+    JSON.parse(
+      localStorage.getItem("ownedCars") ||
+      '["red"]'
+    );
 
 }catch{
 
   ownedCars=["red"];
-
 }
 
 if(!ownedCars.includes("red")){
   ownedCars.push("red");
 }
 
-let keys={
-  left:false,
-  right:false
-};
-
-bestText.textContent=best;
-coinsText.textContent=coins;
-shopCoins.textContent=coins;
-
 
 /* =========================
-   LINHAS DA ESTRADA
+   PREPARAR ESTRADA
 ========================= */
 
 for(let i=0;i<8;i++){
 
-  const line=document.createElement("div");
+  const line=
+    document.createElement("div");
 
   line.className="line";
 
-  line.style.top=(i*100-100)+"px";
+  line.style.top=
+    (i*100-100)+"px";
 
   game.appendChild(line);
 }
 
 
 /* =========================
-   NÍVEIS
+   CONFIGURAR NÍVEL
 ========================= */
 
 function setLevel(l){
 
   level=l;
 
-  if(level===1) speed=4;
-  if(level===2) speed=5;
-  if(level===3) speed=6;
-  if(level===4) speed=7;
+  if(level===1){
+    speed=4;
+    targetScore=100;
+  }
+
+  if(level===2){
+    speed=5;
+    targetScore=200;
+  }
+
+  if(level===3){
+    speed=6;
+    targetScore=300;
+  }
+
+  if(level===4){
+    speed=7;
+    targetScore=500;
+  }
+
+  targetText.textContent=
+    targetScore;
 }
 
 
 /* =========================
-   MENU
+   ATUALIZAR PROGRESSO
 ========================= */
 
-function showMainMenu(){
+function updateProgress(){
 
-  mainMenu.classList.remove("hidden");
-  levelMenu.classList.add("hidden");
-  shopMenu.classList.add("hidden");
-  howMenu.classList.add("hidden");
+  const current=
+    Math.min(score,targetScore);
 
-  menuTitle.textContent="🏎️ Corrida Relâmpago";
-  subtitle.textContent="Desvia dos carros e chega à META!";
-}
+  const percent=
+    Math.min(
+      100,
+      current/targetScore*100
+    );
 
-levelsButton.onclick=function(){
+  const remaining=
+    Math.max(
+      0,
+      targetScore-Math.floor(score)
+    );
 
-  mainMenu.classList.add("hidden");
-  shopMenu.classList.add("hidden");
-  howMenu.classList.add("hidden");
+  progressFill.style.width=
+    percent+"%";
 
-  levelMenu.classList.remove("hidden");
+  remainingText.textContent=
+    remaining;
 
-  menuTitle.textContent="🏁 Escolhe o nível";
-  subtitle.textContent="Cada nível fica mais rápido!";
-};
-
-shopButton.onclick=function(){
-
-  mainMenu.classList.add("hidden");
-  levelMenu.classList.add("hidden");
-  howMenu.classList.add("hidden");
-
-  shopMenu.classList.remove("hidden");
-
-  menuTitle.textContent="🚗 Loja de Carros";
-  subtitle.textContent="Escolhe o teu carro!";
-  updateShop();
-};
-
-howButton.onclick=function(){
-
-  mainMenu.classList.add("hidden");
-  levelMenu.classList.add("hidden");
-  shopMenu.classList.add("hidden");
-
-  howMenu.classList.remove("hidden");
-
-  menuTitle.textContent="🎮 Como jogar";
-  subtitle.textContent="Chega à META!";
-};
-
-backButton.onclick=showMainMenu;
-backShop.onclick=showMainMenu;
-backHow.onclick=showMainMenu;
-
-
-/* =========================
-   NÍVEIS
-========================= */
-
-document.querySelectorAll(".levelBtn").forEach(button=>{
-
-  button.onclick=function(){
-
-    setLevel(Number(button.dataset.level));
-
-    startGame();
-  };
-
-});
-
-
-/* =========================
-   LOJA
-========================= */
-
-function updateShop(){
-
-  shopCoins.textContent=coins;
-
-  coinsText.textContent=coins;
-
-  document.querySelectorAll(".carButton")
-  .forEach(button=>{
-
-    const name=button.dataset.car;
-    const price=Number(button.dataset.price);
-
-    const names={
-      red:"🔴 CARRO VERMELHO",
-      blue:"🔵 CARRO AZUL",
-      gold:"🟡 CARRO DOURADO",
-      green:"🟢 CARRO VERDE"
-    };
-
-    button.classList.remove("selected");
-
-    if(ownedCars.includes(name)){
-
-      if(selectedCar===name){
-
-        button.textContent=
-          "✅ "+names[name]+" — SELECIONADO";
-
-        button.classList.add("selected");
-
-      }else{
-
-        button.textContent=
-          names[name]+" — USAR";
-      }
-
-    }else{
-
-      button.textContent=
-        names[name]+" — "+price+" 🪙";
-    }
-
-  });
+  targetText.textContent=
+    targetScore;
 }
 
 
-document.querySelectorAll(".carButton")
-.forEach(button=>{
-
-  button.onclick=function(){
-
-    const name=button.dataset.car;
-    const price=Number(button.dataset.price);
-
-    if(ownedCars.includes(name)){
-
-      selectedCar=name;
-
-      localStorage.setItem(
-        "selectedCar",
-        selectedCar
-      );
-
-      updateCarAppearance();
-      updateShop();
-
-      return;
-    }
-
-    if(coins<price){
-
-      alert("❌ Não tens moedas suficientes!");
-
-      return;
-    }
-
-    coins-=price;
-
-    ownedCars.push(name);
-    selectedCar=name;
-
-    localStorage.setItem(
-      "corridaCoins",
-      coins
-    );
-
-    localStorage.setItem(
-      "ownedCars",
-      JSON.stringify(ownedCars)
-    );
-
-    localStorage.setItem(
-      "selectedCar",
-      selectedCar
-    );
-
-    updateCarAppearance();
-    updateShop();
-
-    alert("🎉 Compraste o carro!");
-  };
-
-});
-
-
 /* =========================
-   CORES DOS CARROS
+   VISUAL DO CARRO
 ========================= */
 
 function updateCarAppearance(){
@@ -967,7 +1121,8 @@ function updateCarAppearance(){
 
   };
 
-  const color=colors[selectedCar] || colors.red;
+  const color=
+    colors[selectedCar] || colors.red;
 
   car.style.background=
     `linear-gradient(
@@ -984,73 +1139,345 @@ function updateCarAppearance(){
      inset -4px 0 6px rgba(0,0,0,.5)`;
 
   car.querySelector(".stripe")
-    .style.background=color.stripe;
+    .style.background=
+    color.stripe;
 }
-
-updateCarAppearance();
 
 
 /* =========================
-   COMEÇAR
+   MENU
 ========================= */
 
-startButton.onclick=startGame;
+function showMainMenu(){
+
+  mainMenu.classList.remove("hidden");
+  levelMenu.classList.add("hidden");
+  shopMenu.classList.add("hidden");
+  howMenu.classList.add("hidden");
+
+  menuTitle.textContent=
+    "🏎️ Corrida Relâmpago";
+
+  subtitle.textContent=
+    "Desvia dos carros e chega à META!";
+}
+
+
+levelsButton.onclick=function(){
+
+  mainMenu.classList.add("hidden");
+  shopMenu.classList.add("hidden");
+  howMenu.classList.add("hidden");
+
+  levelMenu.classList.remove("hidden");
+
+  menuTitle.textContent=
+    "🏁 Escolhe o nível";
+
+  subtitle.textContent=
+    "Escolhe quantos pontos precisas para chegar à meta!";
+};
+
+
+shopButton.onclick=function(){
+
+  mainMenu.classList.add("hidden");
+  levelMenu.classList.add("hidden");
+  howMenu.classList.add("hidden");
+
+  shopMenu.classList.remove("hidden");
+
+  menuTitle.textContent=
+    "🚗 Loja de Carros";
+
+  subtitle.textContent=
+    "Compra carros com as tuas moedas!";
+
+  updateShop();
+};
+
+
+howButton.onclick=function(){
+
+  mainMenu.classList.add("hidden");
+  levelMenu.classList.add("hidden");
+  shopMenu.classList.add("hidden");
+
+  howMenu.classList.remove("hidden");
+
+  menuTitle.textContent=
+    "🎮 Como jogar";
+
+  subtitle.textContent=
+    "Chega aos pontos necessários e cruza a META!";
+};
+
+
+backButton.onclick=
+  showMainMenu;
+
+backShop.onclick=
+  showMainMenu;
+
+backHow.onclick=
+  showMainMenu;
+
+
+/* =========================
+   NÍVEIS
+========================= */
+
+document.querySelectorAll(".levelBtn")
+.forEach(function(button){
+
+  button.onclick=function(){
+
+    setLevel(
+      Number(button.dataset.level)
+    );
+
+    startGame();
+  };
+
+});
+
+
+/* =========================
+   LOJA
+========================= */
+
+function updateShop(){
+
+  shopCoins.textContent=
+    coins;
+
+  coinsText.textContent=
+    coins;
+
+  document.querySelectorAll(
+    ".carButton"
+  ).forEach(function(button){
+
+    const name=
+      button.dataset.car;
+
+    const price=
+      Number(button.dataset.price);
+
+    const names={
+
+      red:"🔴 CARRO VERMELHO",
+
+      blue:"🔵 CARRO AZUL",
+
+      gold:"🟡 CARRO DOURADO",
+
+      green:"🟢 CARRO VERDE"
+    };
+
+    button.classList.remove(
+      "selected"
+    );
+
+    if(ownedCars.includes(name)){
+
+      if(selectedCar===name){
+
+        button.textContent=
+          "✅ "+names[name]+
+          " — SELECIONADO";
+
+        button.classList.add(
+          "selected"
+        );
+
+      }else{
+
+        button.textContent=
+          names[name]+" — USAR";
+      }
+
+    }else{
+
+      button.textContent=
+        names[name]+" — "+price+" 🪙";
+    }
+
+  });
+}
+
+
+document.querySelectorAll(
+  ".carButton"
+).forEach(function(button){
+
+  button.onclick=function(){
+
+    const name=
+      button.dataset.car;
+
+    const price=
+      Number(button.dataset.price);
+
+    if(ownedCars.includes(name)){
+
+      selectedCar=name;
+
+      localStorage.setItem(
+        "selectedCar",
+        selectedCar
+      );
+
+      updateCarAppearance();
+      updateShop();
+
+      return;
+    }
+
+    if(coins<price){
+
+      alert(
+        "❌ Não tens moedas suficientes!"
+      );
+
+      return;
+    }
+
+    coins-=price;
+
+    ownedCars.push(name);
+
+    selectedCar=name;
+
+    localStorage.setItem(
+      "corridaCoins",
+      coins
+    );
+
+    localStorage.setItem(
+      "ownedCars",
+      JSON.stringify(ownedCars)
+    );
+
+    localStorage.setItem(
+      "selectedCar",
+      selectedCar
+    );
+
+    updateCarAppearance();
+    updateShop();
+
+    alert(
+      "🎉 Compraste o carro!"
+    );
+  };
+});
+
+
+/* =========================
+   INICIAR
+========================= */
+
+startButton.onclick=
+  startGame;
+
 
 function startGame(){
 
   running=true;
 
   score=0;
-  progress=0;
-  enemyTimer=0;
-  obstacleTimer=0;
 
-  scoreText.textContent="0";
+  enemyTimer=0;
+
+  obstacleTimer=0;
 
   carX=173;
 
-  car.style.left=carX+"px";
+  scoreText.textContent=
+    "0";
 
-  /* META começa escondida */
-  finish.style.top="-130px";
+  car.style.left=
+    carX+"px";
+
+  finish.style.top=
+    "-130px";
+
+  finish.classList.remove(
+    "near"
+  );
+
+  message.textContent=
+    "";
+
+  progressFill.style.width=
+    "0%";
+
+  remainingText.textContent=
+    targetScore;
 
   document.querySelectorAll(
     ".enemy,.obstacle"
-  ).forEach(object=>object.remove());
+  ).forEach(function(object){
 
-  menu.classList.add("hidden");
+    object.remove();
 
-  requestAnimationFrame(gameLoop);
+  });
+
+  menu.classList.add(
+    "hidden"
+  );
+
+  updateCarAppearance();
+
+  requestAnimationFrame(
+    gameLoop
+  );
 }
 
 
 /* =========================
-   INIMIGOS
+   CRIAR INIMIGO
 ========================= */
 
 function createEnemy(){
 
-  const enemy=document.createElement("div");
+  const enemy=
+    document.createElement("div");
 
-  enemy.className="enemy";
+  enemy.className=
+    "enemy";
 
   enemy.innerHTML=`
+
     <div class="window"></div>
+
     <div class="wheel w1"></div>
     <div class="wheel w2"></div>
     <div class="wheel w3"></div>
     <div class="wheel w4"></div>
+
   `;
 
   const colors=[
+
     ["#1976ff","#063f99"],
+
     ["#9c27b0","#541064"],
+
     ["#ff8c00","#994700"],
+
     ["#00a878","#00563e"]
+
   ];
 
   const color=
-    colors[Math.floor(Math.random()*colors.length)];
+    colors[
+      Math.floor(
+        Math.random()*
+        colors.length
+      )
+    ];
 
   enemy.style.background=
     `linear-gradient(
@@ -1061,14 +1488,21 @@ function createEnemy(){
     )`;
 
   const lane=
-    Math.floor(Math.random()*3);
+    Math.floor(
+      Math.random()*3
+    );
 
-  const lanePositions=[78,170,262];
+  const lanePositions=[
+    78,
+    170,
+    262
+  ];
 
   enemy.style.left=
     lanePositions[lane]+"px";
 
-  enemy.style.top="-100px";
+  enemy.style.top=
+    "-100px";
 
   game.appendChild(enemy);
 }
@@ -1080,9 +1514,11 @@ function createEnemy(){
 
 function createObstacle(){
 
-  const obstacle=document.createElement("div");
+  const obstacle=
+    document.createElement("div");
 
-  obstacle.className="obstacle";
+  obstacle.className=
+    "obstacle";
 
   const types=[
     "cone",
@@ -1098,32 +1534,46 @@ function createObstacle(){
 
   }else if(level===2){
 
-    type=Math.random()<.7
+    type=
+      Math.random()<.7
       ?"cone"
       :"barrier";
 
   }else{
 
-    type=types[
-      Math.floor(Math.random()*types.length)
-    ];
+    type=
+      types[
+        Math.floor(
+          Math.random()*
+          types.length
+        )
+      ];
   }
 
-  obstacle.classList.add(type);
+  obstacle.classList.add(
+    type
+  );
 
   const lane=
-    Math.floor(Math.random()*3);
+    Math.floor(
+      Math.random()*3
+    );
 
   const lanePositions=[
-    78,170,262
+    78,
+    170,
+    262
   ];
 
   obstacle.style.left=
     lanePositions[lane]+"px";
 
-  obstacle.style.top="-60px";
+  obstacle.style.top=
+    "-60px";
 
-  game.appendChild(obstacle);
+  game.appendChild(
+    obstacle
+  );
 }
 
 
@@ -1133,8 +1583,11 @@ function createObstacle(){
 
 function collision(a,b){
 
-  const r1=a.getBoundingClientRect();
-  const r2=b.getBoundingClientRect();
+  const r1=
+    a.getBoundingClientRect();
+
+  const r2=
+    b.getBoundingClientRect();
 
   return !(
     r1.right<r2.left ||
@@ -1151,24 +1604,32 @@ function collision(a,b){
 
 function rewardForLevel(){
 
-  if(level===1)return 1;
-  if(level===2)return 2;
-  if(level===3)return 4;
-  if(level===4)return 7;
+  if(level===1)
+    return 1;
+
+  if(level===2)
+    return 1;
+
+  if(level===3)
+    return 4;
+
+  if(level===4)
+    return 7;
 
   return 1;
 }
 
 
 /* =========================
-   VITÓRIA
+   GANHOU
 ========================= */
 
 function winLevel(){
 
   running=false;
 
-  const reward=rewardForLevel();
+  const reward=
+    rewardForLevel();
 
   coins+=reward;
 
@@ -1177,48 +1638,76 @@ function winLevel(){
     coins
   );
 
-  coinsText.textContent=coins;
-  shopCoins.textContent=coins;
+  coinsText.textContent=
+    coins;
 
-  menu.classList.remove("hidden");
+  shopCoins.textContent=
+    coins;
 
-  mainMenu.classList.remove("hidden");
-  levelMenu.classList.add("hidden");
-  shopMenu.classList.add("hidden");
-  howMenu.classList.add("hidden");
+  menu.classList.remove(
+    "hidden"
+  );
 
-  menuTitle.textContent="🏆 GANHASTE!";
+  mainMenu.classList.remove(
+    "hidden"
+  );
+
+  levelMenu.classList.add(
+    "hidden"
+  );
+
+  shopMenu.classList.add(
+    "hidden"
+  );
+
+  howMenu.classList.add(
+    "hidden"
+  );
+
+  finish.classList.remove(
+    "near"
+  );
+
+  menuTitle.textContent=
+    "🏆 GANHASTE!";
 
   subtitle.textContent=
-    "🏁 Chegaste à META! Nível "+
-    level+
-    " — ganhaste "+
-    reward+
-    " moeda"+(reward===1?"":"s")+"! 🪙";
+    "🏁 Chegaste à META! "+
+    "Nível "+level+
+    " — +"+reward+
+    " moeda"+
+    (reward===1?"":"s")+
+    " 🪙";
 
   if(level<4){
 
-    startButton.textContent="➡️ PRÓXIMO NÍVEL";
+    startButton.textContent=
+      "➡️ PRÓXIMO NÍVEL";
 
-    startButton.onclick=function(){
+    startButton.onclick=
+      function(){
 
-      level++;
+        level++;
 
-      setLevel(level);
+        setLevel(level);
 
-      startGame();
-    };
+        startGame();
+
+      };
 
   }else{
 
-    startButton.textContent="🔄 JOGAR NOVAMENTE";
+    startButton.textContent=
+      "🔄 JOGAR NOVAMENTE";
 
-    startButton.onclick=function(){
+    startButton.onclick=
+      function(){
 
-      setLevel(1);
+        setLevel(1);
 
-      startGame();
-    };
+        startGame();
+
+      };
   }
 }
 
@@ -1231,7 +1720,8 @@ function gameOver(){
 
   running=false;
 
-  const finalScore=Math.floor(score);
+  const finalScore=
+    Math.floor(score);
 
   if(finalScore>best){
 
@@ -1242,24 +1732,47 @@ function gameOver(){
       best
     );
 
-    bestText.textContent=best;
+    bestText.textContent=
+      best;
   }
 
-  menu.classList.remove("hidden");
+  menu.classList.remove(
+    "hidden"
+  );
 
-  mainMenu.classList.remove("hidden");
-  levelMenu.classList.add("hidden");
-  shopMenu.classList.add("hidden");
-  howMenu.classList.add("hidden");
+  mainMenu.classList.remove(
+    "hidden"
+  );
 
-  menuTitle.textContent="💥 GAME OVER!";
+  levelMenu.classList.add(
+    "hidden"
+  );
+
+  shopMenu.classList.add(
+    "hidden"
+  );
+
+  howMenu.classList.add(
+    "hidden"
+  );
+
+  finish.classList.remove(
+    "near"
+  );
+
+  menuTitle.textContent=
+    "💥 GAME OVER!";
 
   subtitle.textContent=
-    "Fizeste "+finalScore+" pontos.";
+    "Fizeste "+
+    finalScore+
+    " pontos.";
 
-  startButton.textContent="🔄 JOGAR NOVAMENTE";
+  startButton.textContent=
+    "🔄 JOGAR NOVAMENTE";
 
-  startButton.onclick=startGame;
+  startButton.onclick=
+    startGame;
 }
 
 
@@ -1267,43 +1780,54 @@ function gameOver(){
    TECLADO
 ========================= */
 
-document.addEventListener("keydown",function(e){
+document.addEventListener(
+  "keydown",
+  function(e){
 
-  if(
-    e.key==="ArrowLeft" ||
-    e.key.toLowerCase()==="a"
-  ){
+    if(
+      e.key==="ArrowLeft" ||
+      e.key.toLowerCase()==="a"
+    ){
 
-    keys.left=true;
-    e.preventDefault();
+      keys.left=true;
+
+      e.preventDefault();
+    }
+
+    if(
+      e.key==="ArrowRight" ||
+      e.key.toLowerCase()==="d"
+    ){
+
+      keys.right=true;
+
+      e.preventDefault();
+    }
   }
+);
 
-  if(
-    e.key==="ArrowRight" ||
-    e.key.toLowerCase()==="d"
-  ){
 
-    keys.right=true;
-    e.preventDefault();
+document.addEventListener(
+  "keyup",
+  function(e){
+
+    if(
+      e.key==="ArrowLeft" ||
+      e.key.toLowerCase()==="a"
+    ){
+
+      keys.left=false;
+    }
+
+    if(
+      e.key==="ArrowRight" ||
+      e.key.toLowerCase()==="d"
+    ){
+
+      keys.right=false;
+    }
   }
-});
-
-document.addEventListener("keyup",function(e){
-
-  if(
-    e.key==="ArrowLeft" ||
-    e.key.toLowerCase()==="a"
-  ){
-    keys.left=false;
-  }
-
-  if(
-    e.key==="ArrowRight" ||
-    e.key.toLowerCase()==="d"
-  ){
-    keys.right=false;
-  }
-});
+);
 
 
 /* =========================
@@ -1313,67 +1837,82 @@ document.addEventListener("keyup",function(e){
 function holdLeft(e){
 
   e.preventDefault();
+
   keys.left=true;
 }
 
 function releaseLeft(e){
 
   e.preventDefault();
+
   keys.left=false;
 }
 
 function holdRight(e){
 
   e.preventDefault();
+
   keys.right=true;
 }
 
 function releaseRight(e){
 
   e.preventDefault();
+
   keys.right=false;
 }
 
-leftButton.addEventListener(
-  "pointerdown",holdLeft
-);
 
 leftButton.addEventListener(
-  "pointerup",releaseLeft
+  "pointerdown",
+  holdLeft
 );
 
 leftButton.addEventListener(
-  "pointercancel",releaseLeft
+  "pointerup",
+  releaseLeft
 );
 
 leftButton.addEventListener(
-  "pointerleave",releaseLeft
+  "pointercancel",
+  releaseLeft
+);
+
+leftButton.addEventListener(
+  "pointerleave",
+  releaseLeft
+);
+
+
+rightButton.addEventListener(
+  "pointerdown",
+  holdRight
 );
 
 rightButton.addEventListener(
-  "pointerdown",holdRight
+  "pointerup",
+  releaseRight
 );
 
 rightButton.addEventListener(
-  "pointerup",releaseRight
+  "pointercancel",
+  releaseRight
 );
 
 rightButton.addEventListener(
-  "pointercancel",releaseRight
-);
-
-rightButton.addEventListener(
-  "pointerleave",releaseRight
+  "pointerleave",
+  releaseRight
 );
 
 
 /* =========================
-   JOGO
+   LOOP
 ========================= */
 
 function gameLoop(){
 
-  if(!running)return;
+  if(!running)
+    return;
 
 
   /* MOVIMENTO */
@@ -1397,15 +1936,20 @@ function gameLoop(){
     carX=276;
   }
 
-  car.style.left=carX+"px";
+  car.style.left=
+    carX+"px";
 
 
   /* LINHAS */
 
-  document.querySelectorAll(".line")
-  .forEach(function(line){
+  document.querySelectorAll(
+    ".line"
+  ).forEach(function(line){
 
-    let y=parseFloat(line.style.top);
+    let y=
+      parseFloat(
+        line.style.top
+      );
 
     y+=speed;
 
@@ -1413,62 +1957,67 @@ function gameLoop(){
       y=-80;
     }
 
-    line.style.top=y+"px";
+    line.style.top=
+      y+"px";
   });
 
 
-  /* =========================
-     DISTÂNCIA ATÉ À META
-     
-     NÍVEL 1 = MUITO MAIS PERTO
-  ========================= */
+  /* PONTOS */
 
-  if(level===1){
+  score+=0.04;
 
-    progress+=speed/12000;
+  scoreText.textContent=
+    Math.floor(score);
 
-  }else if(level===2){
-
-    progress+=speed/22000;
-
-  }else if(level===3){
-
-    progress+=speed/32000;
-
-  }else{
-
-    progress+=speed/42000;
-  }
+  updateProgress();
 
 
   /* =========================
-     MOSTRAR META
+     META
   ========================= */
 
-  if(progress>=0.55){
+  const progress=
+    score/targetScore;
 
-    const finishY=
+
+  if(progress>=0.72){
+
+    let finishY=
       -130+
-      (progress-0.55)*430;
+      (progress-0.72)*500;
 
     finish.style.top=
       finishY+"px";
 
-    /* aviso quando está perto */
+    message.textContent=
+      progress>=0.85
+      ?"🏁🏁🏁 META À FRENTE! 🏁🏁🏁"
+      :"";
 
-    if(progress>=0.72){
+    if(progress>=0.88){
 
-      message.textContent=
-        "🏁🏁🏁 META À FRENTE! 🏁🏁🏁";
+      finish.classList.add(
+        "near"
+      );
 
     }else{
 
-      message.textContent="";
+      finish.classList.remove(
+        "near"
+      );
     }
 
   }else{
 
-    message.textContent="";
+    finish.style.top=
+      "-130px";
+
+    finish.classList.remove(
+      "near"
+    );
+
+    message.textContent=
+      "";
   }
 
 
@@ -1478,8 +2027,8 @@ function gameLoop(){
 
   const enemyRate=
     Math.max(
-      38,
-      85-level*10
+      35,
+      82-level*10
     );
 
   if(enemyTimer>=enemyRate){
@@ -1496,8 +2045,8 @@ function gameLoop(){
 
   const obstacleRate=
     Math.max(
-      65,
-      130-level*15
+      55,
+      120-level*14
     );
 
   if(obstacleTimer>=obstacleRate){
@@ -1515,7 +2064,9 @@ function gameLoop(){
   ).forEach(function(object){
 
     let y=
-      parseFloat(object.style.top);
+      parseFloat(
+        object.style.top
+      );
 
     y+=speed;
 
@@ -1523,7 +2074,10 @@ function gameLoop(){
       y+"px";
 
 
-    if(collision(car,object)){
+    if(collision(
+      car,
+      object
+    )){
 
       gameOver();
 
@@ -1535,45 +2089,65 @@ function gameLoop(){
 
       object.remove();
 
-      score+=10;
+      score+=3;
     }
 
   });
 
 
-  /* PONTUAÇÃO */
+  /* VITÓRIA */
 
-  score+=0.035;
+  if(score>=targetScore){
 
-  scoreText.textContent=
-    Math.floor(score);
+    finish.style.top=
+      "350px";
 
-
-  /* =========================
-     CHEGOU À META
-  ========================= */
-
-  if(progress>=1){
-
-    finish.style.top="350px";
+    finishText.textContent=
+      "🏁 CHEGASTE! 🏁";
 
     message.textContent=
-      "🏁🏁🏁 META! 🏁🏁🏁";
+      "🏆 META!";
 
-    setTimeout(function(){
+    setTimeout(
+      function(){
 
-      if(!running)return;
+        if(!running)
+          return;
 
-      winLevel();
+        winLevel();
 
-    },300);
+      },
+      450
+    );
 
     return;
   }
 
 
-  requestAnimationFrame(gameLoop);
+  requestAnimationFrame(
+    gameLoop
+  );
 }
+
+
+/* =========================
+   INICIALIZAÇÃO
+========================= */
+
+setLevel(1);
+
+updateProgress();
+
+updateCarAppearance();
+
+shopCoins.textContent=
+  coins;
+
+coinsText.textContent=
+  coins;
+
+bestText.textContent=
+  best;
 
 </script>
 
